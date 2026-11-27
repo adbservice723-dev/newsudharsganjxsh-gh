@@ -81,24 +81,27 @@
   <div class="agency-footer">Ad Manage by <a href="https://t.me/+KMkMkqIAJvliMzM1" target="_blank" rel="noopener">AdNexProAgency</a></div>
 </main>
 
-<!-- META PIXEL: Replace 000000000000000 with your Pixel ID -->
+<!-- META PIXEL -->
 <script>
   const META_PIXEL_ID = "2022824128396564";
+
   !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
   n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
   n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
   t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
   (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-  if(META_PIXEL_ID && META_PIXEL_ID !== "2022824128396564"){
-    fbq('init', 2022824128396564);
-    fbq('track', 'PageView');
-  }
 
-  // Fires a custom Meta event on the Telegram button click (before redirect).
-  document.getElementById('joinTelegram').addEventListener('click', function(){
-    if(typeof fbq === 'function' && META_PIXEL_ID !== "2022824128396564"){
-      fbq('trackCustom', 'JoinClick');
-    }
+  fbq('init', META_PIXEL_ID);
+  fbq('track', 'PageView');
+
+  // One Subscribe event per landing-page load, even if the button is clicked repeatedly.
+  let subscribeEventFired = false;
+
+  document.getElementById('joinTelegram').addEventListener('click', function() {
+    if (subscribeEventFired) return;
+
+    subscribeEventFired = true;
+    fbq('track', 'Subscribe');
   });
 </script>
 </body>
